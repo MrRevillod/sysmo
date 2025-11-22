@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+:root {
+	--color-primary: #007bff; /* Azul informática */
+	--color-secondary: #ffffff; /* Blanco */
+	--color-accent: #e3f2fd; /* Azul claro para acentos */
+	--color-text: #333333; /* Gris oscuro para texto */
+	--color-muted: #f8f9fa; /* Gris claro para fondos */
+}
+
+@theme {
+	--color-primary: var(--color-primary);
+	--color-secondary: var(--color-secondary);
+	--color-accent: var(--color-accent);
+	--color-text: var(--color-text);
+	--color-muted: var(--color-muted);
+}

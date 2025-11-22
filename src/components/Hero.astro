@@ -1,0 +1,55 @@
+---
+// Hero section with problem-focused headline and image gallery
+---
+
+<section class="bg-muted py-20 px-6 text-center">
+	<h1 class="text-4xl md:text-6xl font-bold text-text mb-6">
+		Infraestructura Limitada?<br />
+		<span class="text-primary">Potencia tus Proyectos con Sysmo</span>
+	</h1>
+	<p class="text-lg text-text mb-8 max-w-2xl mx-auto">
+		Servicios de VPS y clusters de Kubernetes para escalabilidad y rendimiento
+		sin límites.
+	</p>
+	<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+		<img
+			src="https://hostingplus.ar/wp-content/uploads/2025/08/Que-es-un-VPS-y-como-puede-transformar-tu-proyecto-online.jpg"
+			alt="Servidor VPS"
+			class="w-full h-64 object-cover rounded shadow-md"
+		/>
+		<img
+			src="https://spaceliftio.wpcomstaging.com/wp-content/uploads/2022/07/90.kubernetes-cluster.png"
+			alt="Cluster Kubernetes"
+			class="w-full h-64 object-cover rounded shadow-md"
+		/>
+		<img
+			src="https://www.motadata.com/wp-content/uploads/2024/02/Blog-Header-Cloud-Infrastructure-Guide-for-Businesses.png"
+			alt="Infraestructura en la nube"
+			class="w-full h-64 object-cover rounded shadow-md"
+		/>
+	</div>
+	<a
+		href="#pricing"
+		id="start-btn"
+		class="bg-primary text-secondary px-8 py-4 rounded text-xl hover:bg-blue-700 transition"
+	>
+		Comienza Ahora
+	</a>
+</section>
+
+<script>
+	const btn = document.getElementById("start-btn") as HTMLAnchorElement
+
+	if (btn) {
+		btn.addEventListener("click", function (e) {
+			e.preventDefault()
+			const target = e.target as HTMLAnchorElement
+			target.style.transform = "scale(0.95)"
+			setTimeout(() => {
+				target.style.transform = "scale(1)"
+				const pricing = document.getElementById("pricing")
+				if (pricing) pricing.scrollIntoView({ behavior: "smooth" })
+			}, 150)
+		})
+	}
+</script>
