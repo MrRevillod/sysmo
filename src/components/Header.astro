@@ -3,13 +3,23 @@
 ---
 
 <header class="bg-white shadow-md py-4 px-24 flex justify-between items-center">
-	<div class="text-2xl font-bold text-primary">Sysmo</div>
-	<button
-		id="contact-btn"
-		class="bg-primary text-secondary px-4 py-2 rounded hover:bg-blue-700 transition"
-	>
-		Contacto
-	</button>
+	<a href="/" class="text-2xl font-bold text-primary">Sysmo</a>
+	<div class="flex space-x-4 items-center">
+		<a
+			href="/quienes-somos"
+			class="text-primary hover:text-blue-700 transition px-4 py-2"
+			>Quiénes Somos</a
+		>
+		<a href="/blog" class="text-primary hover:text-blue-700 transition px-4 py-2"
+			>Blog</a
+		>
+		<button
+			id="contact-btn"
+			class="bg-primary text-secondary px-4 py-2 rounded hover:bg-blue-700 transition"
+		>
+			Contacto
+		</button>
+	</div>
 </header>
 
 <!-- Modal -->
@@ -67,29 +77,36 @@
 </div>
 
 <script>
-	const modal = document.getElementById("contact-modal") as HTMLDivElement
-	const btn = document.getElementById("contact-btn") as HTMLButtonElement
-	const closeBtn = document.getElementById("close-modal") as HTMLButtonElement
-	const form = document.getElementById("contact-form") as HTMLFormElement
+	const modal = document.getElementById("contact-modal")
+	const btn = document.getElementById("contact-btn")
+	const closeBtn = document.getElementById("close-modal")
+	const form = document.getElementById("contact-form")
 
-	btn.addEventListener("click", () => {
-		modal.classList.remove("opacity-0", "pointer-events-none")
+	btn?.addEventListener("click", () => {
+		modal?.classList.remove("opacity-0", "pointer-events-none")
 		setTimeout(() => {
-			modal.querySelector("div")!.classList.remove("scale-95")
-			modal.querySelector("div")!.classList.add("scale-100")
+			const inner = modal?.querySelector("div")
+			if (inner) {
+				inner.classList.remove("scale-95")
+				inner.classList.add("scale-100")
+			}
 		}, 10)
 	})
 
-	closeBtn.addEventListener("click", () => {
-		modal.querySelector("div")!.classList.remove("scale-100")
-		modal.querySelector("div")!.classList.add("scale-95")
+	closeBtn?.addEventListener("click", () => {
+		const inner = modal?.querySelector("div")
+		if (inner) {
+			inner.classList.remove("scale-100")
+			inner.classList.add("scale-95")
+		}
 		setTimeout(
-			() => modal.classList.add("opacity-0", "pointer-events-none"),
+			() => modal?.classList.add("opacity-0", "pointer-events-none"),
 			300
 		)
 	})
 
-	form.addEventListener("submit", async e => {
+	form?.addEventListener("submit", async e => {
+		e.preventDefault()
 		alert("Enviando mensaje...")
 	})
 </script>
