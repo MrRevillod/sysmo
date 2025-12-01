@@ -1,0 +1,87 @@
+---
+// Carousel section for services
+---
+
+<section class="py-20 px-6 text-center bg-white">
+	<h2 class="text-3xl font-bold text-text mb-8">Nuestros Servicios</h2>
+	<!-- Contenedor fijo para el carrusel -->
+	<div class="carousel relative mb-8 max-w-5xl mx-auto h-[500px] rounded-xl overflow-hidden shadow-2xl">
+		<div class="carousel-inner flex h-full transition-transform duration-500 ease-in-out">
+			<div class="carousel-item w-full h-full shrink-0 relative">
+				<img
+					src="/carrousel/background.jpg"
+					alt="Infraestructura Robusta"
+					class="w-full h-full object-cover"
+				/>
+				<div class="absolute bottom-0 left-0 right-0 bg-black/50 p-4 text-white">
+					<h3 class="text-xl font-bold">Data Centers Modernos</h3>
+				</div>
+			</div>
+			<div class="carousel-item w-full h-full shrink-0 relative">
+				<img
+					src="/carrousel/k8s-3d.webp"
+					alt="Kubernetes Clusters"
+					class="w-full h-full object-cover"
+				/>
+				<div class="absolute bottom-0 left-0 right-0 bg-black/50 p-4 text-white">
+					<h3 class="text-xl font-bold">Orquestación con Kubernetes</h3>
+				</div>
+			</div>
+			<div class="carousel-item w-full h-full shrink-0 relative">
+				<img
+					src="/carrousel/code-block.jpeg"
+					alt="DevOps Ready"
+					class="w-full h-full object-cover"
+				/>
+				<div class="absolute bottom-0 left-0 right-0 bg-black/50 p-4 text-white">
+					<h3 class="text-xl font-bold">Entorno para Desarrolladores</h3>
+				</div>
+			</div>
+			<div class="carousel-item w-full h-full shrink-0 relative">
+				<img
+					src="/carrousel/red.jpg"
+					alt="Alta Conectividad"
+					class="w-full h-full object-cover"
+				/>
+				<div class="absolute bottom-0 left-0 right-0 bg-black/50 p-4 text-white">
+					<h3 class="text-xl font-bold">Conectividad Global</h3>
+				</div>
+			</div>
+		</div>
+		<button class="prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-12 h-12 rounded-full flex items-center justify-center text-2xl transition">‹</button>
+		<button class="next absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-12 h-12 rounded-full flex items-center justify-center text-2xl transition">›</button>
+	</div>
+</section>
+
+<style>
+/* El CSS inline o Tailwind maneja la mayoría, pero aseguramos la estructura */
+.carousel-inner {
+	/* No necesitamos width fijo aquí si usamos flex y shrink-0 en los items con JS controlando el transform */
+}
+</style>
+
+<script>
+let currentIndex = 0;
+const inner = document.querySelector('.carousel-inner') as HTMLElement;
+const items = document.querySelectorAll('.carousel-item');
+const totalItems = items.length;
+const prevBtn = document.querySelector('.prev');
+const nextBtn = document.querySelector('.next');
+
+function updateCarousel() {
+	if (inner) {
+		inner.style.transform = `translateX(-${currentIndex * 100}%)`;
+	}
+}
+
+if (prevBtn && nextBtn) {
+	prevBtn.addEventListener('click', () => {
+		currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+		updateCarousel();
+	});
+	nextBtn.addEventListener('click', () => {
+		currentIndex = (currentIndex + 1) % totalItems;
+		updateCarousel();
+	});
+}
+</script>

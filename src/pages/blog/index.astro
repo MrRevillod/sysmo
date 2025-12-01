@@ -6,60 +6,74 @@ import PostCard from "../../components/PostCard.astro"
 ---
 
 <Layout>
-	<div class="min-h-screen flex flex-col">
-		<Header />
+	<Header />
 
-		<main class="grow container mx-auto px-4 py-12">
-			<h1 class="text-4xl font-bold text-center mb-6 text-primary">
-				Blog de Sysmo
-			</h1>
-			<p class="text-center mb-10 text-lg text-text">
-				Noticias, lanzamientos y guías sobre infraestructura cloud y
-				Kubernetes.
-			</p>
+	<main class="min-h-screen">
+		<!-- Hero Section -->
+		<section class="relative min-h-[50vh] flex items-center justify-center bg-[url('/hero-image.jpg')] bg-cover bg-center bg-no-repeat">
+			<div class="absolute inset-0 bg-black/60"></div>
+			<div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+				<div class="p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl shadow-2xl">
+					<h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Blog de Sysmo</h1>
+					<p class="text-xl text-gray-100 max-w-2xl mx-auto">
+						Noticias, lanzamientos y guías sobre infraestructura cloud y
+						Kubernetes.
+					</p>
+				</div>
+			</div>
+		</section>
 
-			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-				<PostCard
-					title="Lanzamiento de VPS Premium: Rendimiento Sin Límites"
-					date="25 de noviembre de 2025"
-					excerpt="Hoy anunciamos nuestro VPS premium, con NVMe, redes dedicadas y soporte 24/7."
-					slug="vps-premium"
-				/>
+		<section class="py-20 px-6 bg-muted">
+			<div class="max-w-6xl mx-auto">
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+					<PostCard
+						title="Lanzamiento de VPS Premium: Rendimiento Sin Límites"
+						date="25 de noviembre de 2025"
+						excerpt="Hoy anunciamos nuestro VPS premium, con NVMe, redes dedicadas y soporte 24/7."
+						slug="vps-premium"
+					/>
 
-				<PostCard
-					title="Nuevo Cluster Kubernetes: Escalabilidad Automática"
-					date="18 de noviembre de 2025"
-					excerpt="Implementamos un sistema de clusters Kubernetes con escalado automático y observabilidad integrada."
-					slug="kubernetes-cluster"
-				/>
+					<PostCard
+						title="Nuevo Cluster Kubernetes: Escalabilidad Automática"
+						date="18 de noviembre de 2025"
+						excerpt="Implementamos un sistema de clusters Kubernetes con escalado automático y observabilidad integrada."
+						slug="kubernetes-cluster"
+					/>
 
-				<PostCard
-					title="Certificación ISO 27001: Seguridad Garantizada"
-					date="11 de noviembre de 2025"
-					excerpt="Sysmo obtiene la certificación ISO 27001 y fortalece sus prácticas de seguridad."
-					slug="iso-27001"
-				/>
+					<PostCard
+						title="Certificación ISO 27001: Seguridad Garantizada"
+						date="11 de noviembre de 2025"
+						excerpt="Sysmo obtiene la certificación ISO 27001 y fortalece sus prácticas de seguridad."
+						slug="iso-27001"
+					/>
 
-				<PostCard
-					title="Expansión Global: Nuevos Data Centers"
-					date="4 de noviembre de 2025"
-					excerpt="Abrimos nuevos data centers en Europa y Asia para mejorar latencia y disponibilidad."
-					slug="data-centers"
-				/>
+					<PostCard
+						title="Expansión Global: Nuevos Data Centers"
+						date="4 de noviembre de 2025"
+						excerpt="Abrimos nuevos data centers en Europa y Asia para mejorar latencia y disponibilidad."
+						slug="data-centers"
+					/>
 
-				<PostCard
-					title="Integración con IA: Optimización Inteligente"
-					date="28 de octubre de 2025"
-					excerpt="Introducimos integración con IA para optimizar recursos automáticamente."
-					slug="ai-integration"
-				/>
+					<PostCard
+						title="Integración con IA: Optimización Inteligente"
+						date="28 de octubre de 2025"
+						excerpt="Introducimos integración con IA para optimizar recursos automáticamente."
+						slug="ai-integration"
+					/>
 
-				<PostCard
-					title="Premio a la Innovación: Reconocimiento del Sector"
-					date="21 de octubre de 2025"
-					excerpt="Sysmo recibe el premio a la innovación por sus soluciones cloud."
-					slug="innovation-award"
-				/>
+					<PostCard
+						title="Premio a la Innovación: Reconocimiento del Sector"
+						date="21 de octubre de 2025"
+						excerpt="Sysmo recibe el premio a la innovación por sus soluciones cloud."
+						slug="innovation-award"
+					/>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
 			</div>
 		</main>
 

@@ -1,0 +1,101 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Header from "../components/Header.astro"
+import Footer from "../components/Footer.astro"
+---
+
+<Layout>
+	<Header />
+
+	<main>
+		<!-- Hero Section -->
+		<section class="relative min-h-[50vh] flex items-center justify-center bg-[url('/hero-image.jpg')] bg-cover bg-center bg-no-repeat">
+			<div class="absolute inset-0 bg-black/60"></div>
+			<div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+				<div class="p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl shadow-2xl">
+					<h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Contáctanos</h1>
+					<p class="text-xl text-gray-100 max-w-2xl mx-auto">
+						Estamos aquí para ayudarte. Ponte en contacto con nuestro equipo de expertos.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Contact Form & Info -->
+		<section class="py-20 px-6 bg-muted">
+			<div class="max-w-6xl mx-auto">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+					<!-- Contact Info -->
+					<div class="space-y-8">
+						<div class="bg-white p-8 rounded-2xl shadow-lg">
+							<h2 class="text-2xl font-bold text-text mb-6">Información de Contacto</h2>
+							<div class="space-y-6">
+								<div class="flex items-start">
+									<div class="text-2xl mr-4">📍</div>
+									<div>
+										<h3 class="font-bold text-text">Dirección</h3>
+										<p class="text-gray-600">Av. Alemania 0123, Oficina 404<br>Temuco, Araucanía, Chile</p>
+									</div>
+								</div>
+								<div class="flex items-start">
+									<div class="text-2xl mr-4">📧</div>
+									<div>
+										<h3 class="font-bold text-text">Email</h3>
+										<p class="text-gray-600">contacto@sysmo.com</p>
+										<p class="text-gray-600">soporte@sysmo.com</p>
+									</div>
+								</div>
+								<div class="flex items-start">
+									<div class="text-2xl mr-4">📞</div>
+									<div>
+										<h3 class="font-bold text-text">Teléfono</h3>
+										<p class="text-gray-600">+52 (55) 1234-5678</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="bg-white p-8 rounded-2xl shadow-lg">
+							<h2 class="text-2xl font-bold text-text mb-6">Horario de Atención</h2>
+							<p class="text-gray-600 mb-2"><span class="font-bold">Lunes a Viernes:</span> 9:00 AM - 6:00 PM</p>
+							<p class="text-gray-600"><span class="font-bold">Soporte Técnico:</span> 24/7</p>
+						</div>
+					</div>
+
+					<!-- Contact Form -->
+					<div class="bg-white p-8 rounded-2xl shadow-lg">
+						<h2 class="text-2xl font-bold text-text mb-6">Envíanos un Mensaje</h2>
+						<form class="space-y-6">
+							<div>
+								<label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nombre Completo</label>
+								<input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition" placeholder="Tu nombre" required>
+							</div>
+							<div>
+								<label for="email" class="block text-sm font-medium text-gray-700 mb-2">Correo Electrónico</label>
+								<input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition" placeholder="tu@email.com" required>
+							</div>
+							<div>
+								<label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Asunto</label>
+								<select id="subject" name="subject" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
+									<option>Ventas</option>
+									<option>Soporte Técnico</option>
+									<option>Facturación</option>
+									<option>Otro</option>
+								</select>
+							</div>
+							<div>
+								<label for="message" class="block text-sm font-medium text-gray-700 mb-2">Mensaje</label>
+								<textarea id="message" name="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition" placeholder="¿En qué podemos ayudarte?" required></textarea>
+							</div>
+							<button type="submit" class="w-full bg-primary text-white font-bold py-4 rounded-full hover:bg-blue-600 transition transform hover:scale-[1.02] shadow-lg">
+								Enviar Mensaje
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
