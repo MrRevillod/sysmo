@@ -1,0 +1,200 @@
+---
+import Layout from "../../layouts/Layout.astro"
+---
+
+<Layout>
+	<main class="container mx-auto px-4 py-12">
+		<article class="max-w-3xl mx-auto bg-white shadow-md rounded-2xl p-8">
+			<a
+				href="/blog"
+				class="inline-flex items-center text-primary font-semibold hover:underline transition ease-in-out duration-300 mb-6"
+			>
+				Volver al Blog
+			</a>
+			<div class="text-sm text-gray-600 font-bold mb-2">
+				1 de noviembre de 2025
+			</div>
+			<h1 class="text-3xl font-bold text-primary mb-4">
+				CI/CD para principiantes: Automatiza tus despliegues
+			</h1>
+
+			<p class="text-gray-700 mb-4">
+				¿Todavía subes tu código al servidor por FTP o entrando por SSH a
+				copiar archivos manualmente? CI/CD puede cambiar completamente tu
+				flujo de trabajo, permitiéndote desplegar con confianza cada vez que
+				haces un commit. Esta guía te explica los conceptos fundamentales y
+				cómo empezar.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				¿Qué significa CI/CD?
+			</h2>
+			<p class="text-gray-700 mb-4">
+				<strong>CI (Continuous Integration)</strong> es la práctica de integrar
+				código frecuentemente al repositorio principal. Cada vez que alguien hace
+				push, se ejecutan pruebas automáticas para detectar errores temprano.
+				La idea es que integrar cambios pequeños y frecuentes es más fácil que
+				integrar cambios grandes después de semanas.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>CD (Continuous Delivery/Deployment)</strong> lleva esto un paso
+				más allá. Continuous Delivery significa que tu código siempre está listo
+				para ser desplegado a producción. Continuous Deployment va aún más lejos:
+				cada cambio que pasa las pruebas se despliega automáticamente.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				¿Por qué deberías implementarlo?
+			</h2>
+			<ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+				<li>
+					<strong>Detectas errores antes:</strong> Las pruebas automáticas encuentran
+					bugs antes de que lleguen a producción
+				</li>
+				<li>
+					<strong>Despliegues más seguros:</strong> Un proceso automatizado
+					es consistente y elimina errores humanos
+				</li>
+				<li>
+					<strong>Feedback rápido:</strong> Sabes en minutos si tu cambio rompió
+					algo
+				</li>
+				<li>
+					<strong>Menos estrés:</strong> Desplegar deja de ser un evento traumático
+					del viernes por la noche
+				</li>
+				<li>
+					<strong>Documentación viva:</strong> El pipeline documenta exactamente
+					cómo se construye y despliega tu app
+				</li>
+			</ul>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Anatomía de un pipeline
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Un pipeline típico tiene varias etapas que se ejecutan
+				secuencialmente:
+			</p>
+			<div class="bg-gray-100 p-4 rounded-lg mb-4">
+				<ol class="list-decimal list-inside text-gray-700 space-y-2">
+					<li>
+						<strong>Build:</strong> Compilar el código, instalar dependencias
+					</li>
+					<li>
+						<strong>Test:</strong> Ejecutar pruebas unitarias y de integración
+					</li>
+					<li>
+						<strong>Lint/Quality:</strong> Verificar estilo de código y calidad
+					</li>
+					<li>
+						<strong>Build artifact:</strong> Crear la imagen Docker o el paquete
+						deployable
+					</li>
+					<li>
+						<strong>Deploy to staging:</strong> Desplegar a un ambiente de
+						pruebas
+					</li>
+					<li>
+						<strong>Deploy to production:</strong> Desplegar al ambiente final
+					</li>
+				</ol>
+			</div>
+			<p class="text-gray-700 mb-4">
+				Si cualquier etapa falla, el pipeline se detiene y recibes una
+				notificación. El código no llega a producción hasta que todo pasa.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Ejemplo con GitHub Actions
+			</h2>
+			<p class="text-gray-700 mb-4">
+				GitHub Actions es una de las formas más simples de empezar con CI/CD.
+				Solo necesitas crear un archivo YAML en tu repositorio:
+			</p>
+			<div
+				class="bg-gray-100 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto"
+			>
+				<code class="whitespace-pre">
+					# .github/workflows/ci.yml name: CI/CD Pipeline on: push:
+					branches: [main] pull_request: branches: [main] jobs: test:
+					runs-on: ubuntu-latest steps: - uses: actions/checkout@v3 - name:
+					Setup Node.js uses: actions/setup-node@v3 with: node-version:
+					'18' - name: Install dependencies run: npm ci - name: Run tests
+					run: npm test - name: Run linter run: npm run lint build: needs:
+					test runs-on: ubuntu-latest steps: - uses: actions/checkout@v3 -
+					name: Build Docker image run: docker build -t mi-app:latest . -
+					name: Push to registry run: | docker tag mi-app:latest
+					registry/mi-app:latest docker push registry/mi-app:latest
+				</code>
+			</div>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Herramientas populares
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Existen muchas opciones para implementar CI/CD, cada una con sus
+				ventajas:
+			</p>
+			<ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+				<li>
+					<strong>GitHub Actions:</strong> Integrado con GitHub, gratis para
+					repositorios públicos, fácil de empezar
+				</li>
+				<li>
+					<strong>GitLab CI:</strong> Muy completo, incluido con GitLab, buena
+					integración con Kubernetes
+				</li>
+				<li>
+					<strong>Jenkins:</strong> El veterano, muy flexible pero requiere
+					más configuración y mantenimiento
+				</li>
+				<li>
+					<strong>CircleCI:</strong> Rápido, buena experiencia de usuario, plan
+					gratuito generoso
+				</li>
+				<li>
+					<strong>Travis CI:</strong> Simple, popular en proyectos open source
+				</li>
+			</ul>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Consejos para empezar
+			</h2>
+			<p class="text-gray-700 mb-4">
+				<strong>1. Empieza simple:</strong> No intentes automatizar todo de una
+				vez. Comienza con un pipeline que solo corra tus tests. Una vez que funcione,
+				agrega más etapas.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>2. Escribe tests primero:</strong> CI/CD sin tests es solo CD.
+				La integración continua asume que tienes pruebas que validen tu código.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>3. Haz los pipelines rápidos:</strong> Un pipeline que tarda 30
+				minutos mata la productividad. Optimiza para que corra en menos de 10
+				minutos.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>4. No ignores los fallos:</strong> Si el pipeline falla, arréglalo
+				antes de seguir trabajando. Un pipeline roto que se ignora pierde todo
+				su valor.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				El cambio cultural
+			</h2>
+			<p class="text-gray-700 mb-4">
+				CI/CD no es solo una herramienta, es un cambio en la forma de
+				trabajar. Requiere commits pequeños y frecuentes, buena cobertura de
+				tests, y la disciplina de no ignorar los fallos del pipeline.
+			</p>
+			<p class="text-gray-700">
+				Al principio puede parecer más trabajo, pero una vez que experimentas
+				la tranquilidad de saber que cada cambio está validado
+				automáticamente, no querrás volver atrás. Desplegar se vuelve algo
+				rutinario en lugar de un evento estresante.
+			</p>
+		</article>
+	</main>
+</Layout>

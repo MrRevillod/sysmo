@@ -1,0 +1,180 @@
+---
+import Layout from "../../layouts/Layout.astro"
+---
+
+<Layout>
+	<main class="container mx-auto px-4 py-12">
+		<article class="max-w-3xl mx-auto bg-white shadow-md rounded-2xl p-8">
+			<a
+				href="/blog"
+				class="inline-flex items-center text-primary font-semibold hover:underline transition ease-in-out duration-300 mb-6"
+			>
+				Volver al Blog
+			</a>
+			<div class="text-sm text-gray-600 font-bold mb-2">
+				8 de noviembre de 2025
+			</div>
+			<h1 class="text-3xl font-bold text-primary mb-4">
+				Introducción a Docker: Guía práctica para desarrolladores
+			</h1>
+
+			<p class="text-gray-700 mb-4">
+				Si alguna vez has escuchado "en mi máquina funciona" o has pasado
+				horas configurando un ambiente de desarrollo, Docker puede ser la
+				solución. Esta guía te explica qué es Docker, por qué deberías usarlo
+				y cómo empezar.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				¿Qué problema resuelve Docker?
+			</h2>
+			<p class="text-gray-700 mb-4">
+				El problema clásico del desarrollo de software es la inconsistencia
+				entre ambientes. Tu aplicación funciona perfectamente en tu laptop,
+				pero cuando la subes al servidor de producción algo falla. La versión
+				de Node es diferente, falta una librería, las variables de entorno no
+				están configuradas igual.
+			</p>
+			<p class="text-gray-700 mb-4">
+				Docker resuelve esto empaquetando tu aplicación junto con todo lo que
+				necesita para correr: sistema operativo base, dependencias,
+				librerías, configuraciones. Este paquete se llama "imagen" y
+				garantiza que tu aplicación corra exactamente igual en cualquier
+				lugar.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Conceptos básicos
+			</h2>
+			<p class="text-gray-700 mb-4">
+				<strong>Imagen:</strong> Es como una plantilla o snapshot de tu aplicación.
+				Contiene el código, dependencias y configuraciones. Las imágenes son inmutables,
+				no cambian una vez creadas.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>Contenedor:</strong> Es una instancia en ejecución de una imagen.
+				Puedes crear múltiples contenedores desde la misma imagen. Los contenedores
+				son efímeros, cuando los detienes pierden los cambios (a menos que uses
+				volúmenes).
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>Dockerfile:</strong> Es el archivo de instrucciones que define
+				cómo construir tu imagen. Especifica qué sistema base usar, qué comandos
+				ejecutar y cómo iniciar tu aplicación.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>Docker Hub:</strong> Es un registro público donde puedes subir
+				y descargar imágenes. Hay miles de imágenes listas para usar: bases de
+				datos, servidores web, lenguajes de programación.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Tu primer Dockerfile
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Supongamos que tienes una aplicación Node.js simple. Así se vería un
+				Dockerfile básico:
+			</p>
+			<div
+				class="bg-gray-100 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto"
+			>
+				<code class="whitespace-pre">
+					# Imagen base con Node.js FROM node:18-alpine # Directorio de
+					trabajo dentro del contenedor WORKDIR /app # Copiar archivos de
+					dependencias COPY package*.json ./ # Instalar dependencias RUN
+					npm install # Copiar el resto del código COPY . . # Puerto que
+					expone la aplicación EXPOSE 3000 # Comando para iniciar la
+					aplicación CMD ["npm", "start"]
+				</code>
+			</div>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Comandos esenciales
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Con el Dockerfile listo, estos son los comandos que más usarás:
+			</p>
+			<div
+				class="bg-gray-100 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto"
+			>
+				<code class="whitespace-pre">
+					# Construir una imagen desde el Dockerfile docker build -t
+					mi-app:1.0 . # Ver las imágenes disponibles docker images # Crear
+					y ejecutar un contenedor docker run -d -p 3000:3000 mi-app:1.0 #
+					Ver contenedores en ejecución docker ps # Ver logs de un
+					contenedor docker logs [container_id] # Detener un contenedor
+					docker stop [container_id] # Eliminar un contenedor docker rm
+					[container_id]
+				</code>
+			</div>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Docker Compose para múltiples servicios
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Cuando tu aplicación necesita varios servicios (por ejemplo, una API
+				+ base de datos + cache), Docker Compose te permite definirlos todos
+				en un archivo YAML y levantarlos con un solo comando.
+			</p>
+			<div
+				class="bg-gray-100 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto"
+			>
+				<code class="whitespace-pre">
+					# docker-compose.yml version: '3.8' services: api: build: .
+					ports: - "3000:3000" depends_on: - db environment: -
+					DATABASE_URL=postgres://user:pass@db:5432/mydb db: image:
+					postgres:15 environment: - POSTGRES_USER=user -
+					POSTGRES_PASSWORD=pass - POSTGRES_DB=mydb volumes: -
+					postgres_data:/var/lib/postgresql/data volumes: postgres_data:
+				</code>
+			</div>
+			<p class="text-gray-700 mb-4">
+				Con esto, ejecutas <code class="bg-gray-100 px-2 py-1 rounded"
+					>docker-compose up</code
+				> y tienes tu API conectada a PostgreSQL, todo configurado y listo.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Buenas prácticas
+			</h2>
+			<ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+				<li>
+					<strong>Usa imágenes base pequeñas:</strong> alpine es mucho más liviana
+					que las versiones completas
+				</li>
+				<li>
+					<strong>Aprovecha el cache de capas:</strong> Pon las instrucciones
+					que cambian menos frecuentemente primero
+				</li>
+				<li>
+					<strong>No incluyas secretos en la imagen:</strong> Usa variables
+					de entorno o secrets de Docker
+				</li>
+				<li>
+					<strong>Un proceso por contenedor:</strong> No metas tu API y tu base
+					de datos en el mismo contenedor
+				</li>
+				<li>
+					<strong>Usa .dockerignore:</strong> Excluye node_modules, .git y archivos
+					innecesarios
+				</li>
+			</ul>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Siguientes pasos
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Una vez que domines los conceptos básicos de Docker, el siguiente
+				paso natural es aprender sobre orquestación de contenedores.
+				Kubernetes es el estándar de la industria para manejar contenedores
+				en producción a escala, pero también existen alternativas más simples
+				como Docker Swarm.
+			</p>
+			<p class="text-gray-700">
+				Docker transformó la forma en que desarrollamos y desplegamos
+				software. Invertir tiempo en aprenderlo bien te hará más productivo y
+				te abrirá puertas en el mundo DevOps y cloud computing.
+			</p>
+		</article>
+	</main>
+</Layout>

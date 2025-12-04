@@ -1,0 +1,166 @@
+---
+import Layout from "../../layouts/Layout.astro"
+---
+
+<Layout>
+	<main class="container mx-auto px-4 py-12">
+		<article class="max-w-3xl mx-auto bg-white shadow-md rounded-2xl p-8">
+			<a
+				href="/blog"
+				class="inline-flex items-center text-primary font-semibold hover:underline transition ease-in-out duration-300 mb-6"
+			>
+				Volver al Blog
+			</a>
+			<div class="text-sm text-gray-600 font-bold mb-2">
+				15 de noviembre de 2025
+			</div>
+			<h1 class="text-3xl font-bold text-primary mb-4">
+				5 errores comunes al configurar tu primer servidor en producción
+			</h1>
+
+			<p class="text-gray-700 mb-4">
+				Configurar un servidor para producción por primera vez puede ser
+				intimidante. Hay muchos aspectos que considerar y es fácil pasar por
+				alto detalles que pueden convertirse en problemas serios después.
+				Estos son los errores más comunes que vemos en desarrolladores que
+				están empezando con administración de servidores.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				1. No cambiar las credenciales por defecto
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Parece obvio, pero es sorprendentemente común. Muchos dejan el
+				usuario root con la contraseña que vino por defecto, o peor aún, con
+				una contraseña débil. Lo primero que hacen los bots de ataque es
+				probar credenciales comunes.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>Qué hacer:</strong> Inmediatamente después de acceder al servidor,
+				cambia la contraseña de root por una fuerte (mínimo 16 caracteres, combinando
+				letras, números y símbolos). Mejor aún, deshabilita el login con contraseña
+				y usa exclusivamente llaves SSH.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				2. Dejar todos los puertos abiertos
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Un servidor recién instalado generalmente tiene el firewall
+				deshabilitado o muy permisivo. Esto significa que cualquier servicio
+				que levantes queda expuesto a internet, incluyendo bases de datos,
+				paneles de administración y servicios de desarrollo.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>Qué hacer:</strong> Configura el firewall (UFW en Ubuntu, firewalld
+				en CentOS) para permitir solo los puertos que realmente necesitas. Generalmente
+				son: 22 (SSH), 80 (HTTP), 443 (HTTPS). Todo lo demás debería estar bloqueado
+				por defecto.
+			</p>
+			<div class="bg-gray-100 p-4 rounded-lg mb-4 font-mono text-sm">
+				<code>
+					sudo ufw default deny incoming<br />
+					sudo ufw allow ssh<br />
+					sudo ufw allow http<br />
+					sudo ufw allow https<br />
+					sudo ufw enable
+				</code>
+			</div>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				3. No configurar actualizaciones automáticas
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Las vulnerabilidades de seguridad se descubren constantemente. Si no
+				actualizas tu servidor regularmente, estás dejando la puerta abierta
+				a exploits conocidos. El problema es que actualizar manualmente es
+				tedioso y fácil de olvidar.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>Qué hacer:</strong> Configura actualizaciones automáticas de seguridad.
+				En Ubuntu puedes usar unattended-upgrades, que instala parches de seguridad
+				automáticamente sin intervención manual.
+			</p>
+			<div class="bg-gray-100 p-4 rounded-lg mb-4 font-mono text-sm">
+				<code>
+					sudo apt install unattended-upgrades<br />
+					sudo dpkg-reconfigure unattended-upgrades
+				</code>
+			</div>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				4. No hacer backups (o no probarlos)
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Este error tiene dos variantes: no hacer backups en absoluto, o
+				hacerlos pero nunca verificar que funcionan. Un backup que no puedes
+				restaurar no sirve de nada. Los discos fallan, los errores humanos
+				ocurren, y sin backup estás a un comando de perder todo.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>Qué hacer:</strong> Implementa una estrategia de backup automático.
+				Puede ser tan simple como un script con rsync que corra cada noche, o
+				una solución más robusta con snapshots. Lo importante es que sea automático
+				y que pruebes la restauración al menos una vez al mes.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				5. Correr todo como root
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Es tentador hacer todo como root porque nunca te encuentras con
+				problemas de permisos. Pero esto es peligroso: cualquier error o
+				vulnerabilidad en tu aplicación tiene acceso completo al sistema. Un
+				atacante que comprometa tu aplicación web tendría control total del
+				servidor.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>Qué hacer:</strong> Crea usuarios específicos para cada servicio
+				con los mínimos permisos necesarios. Tu aplicación web debería correr
+				con un usuario que solo tiene acceso a los archivos que necesita, no como
+				root.
+			</p>
+			<div class="bg-gray-100 p-4 rounded-lg mb-4 font-mono text-sm">
+				<code>
+					sudo adduser --system --group miapp<br />
+					sudo chown -R miapp:miapp /var/www/miapp
+				</code>
+			</div>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Bonus: No monitorear el servidor
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Muchos configuran el servidor, despliegan la aplicación y se olvidan
+				hasta que algo falla. Sin monitoreo, no sabes si el disco se está
+				llenando, si la RAM está al límite, o si hay procesos consumiendo
+				recursos anormalmente.
+			</p>
+			<p class="text-gray-700 mb-4">
+				<strong>Qué hacer:</strong> Instala al menos una herramienta básica de
+				monitoreo. Puede ser algo simple como htop para revisar manualmente, o
+				configurar alertas con herramientas como Netdata o Prometheus que te avisen
+				cuando algo está mal.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Checklist rápido
+			</h2>
+			<ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+				<li>✓ Cambiar contraseña de root y configurar llaves SSH</li>
+				<li>✓ Configurar firewall con solo puertos necesarios</li>
+				<li>✓ Habilitar actualizaciones automáticas de seguridad</li>
+				<li>✓ Configurar backups automáticos y probar restauración</li>
+				<li>✓ Crear usuarios específicos para cada servicio</li>
+				<li>✓ Instalar herramientas de monitoreo básico</li>
+			</ul>
+
+			<p class="text-gray-700">
+				Evitar estos errores no requiere ser un experto en sistemas. Son
+				prácticas básicas que protegen tu servidor y te ahorrarán dolores de
+				cabeza en el futuro. Tómate el tiempo de configurar bien desde el
+				inicio.
+			</p>
+		</article>
+	</main>
+</Layout>

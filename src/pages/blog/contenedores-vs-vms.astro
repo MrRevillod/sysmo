@@ -1,0 +1,193 @@
+---
+import Layout from "../../layouts/Layout.astro"
+---
+
+<Layout>
+	<main class="container mx-auto px-4 py-12">
+		<article class="max-w-3xl mx-auto bg-white shadow-md rounded-2xl p-8">
+			<a
+				href="/blog"
+				class="inline-flex items-center text-primary font-semibold hover:underline transition ease-in-out duration-300 mb-6"
+			>
+				Volver al Blog
+			</a>
+			<div class="text-sm text-gray-600 font-bold mb-2">
+				20 de noviembre de 2025
+			</div>
+			<h1 class="text-3xl font-bold text-primary mb-4">
+				Contenedores vs Máquinas Virtuales: ¿Cuál elegir para tu proyecto?
+			</h1>
+
+			<p class="text-gray-700 mb-4">
+				Si estás comenzando un proyecto de desarrollo o necesitas desplegar
+				una aplicación, probablemente te has encontrado con esta pregunta:
+				¿debería usar contenedores o máquinas virtuales? Ambas tecnologías
+				tienen sus ventajas y la elección correcta depende de tu caso
+				específico.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				¿Qué es una Máquina Virtual?
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Una máquina virtual (VM) es básicamente un computador completo
+				emulado dentro de otro. Tiene su propio sistema operativo, kernel,
+				drivers y recursos asignados. Cuando creas una VM, estás reservando
+				una porción del hardware físico exclusivamente para esa instancia.
+			</p>
+			<p class="text-gray-700 mb-4">
+				Las VMs funcionan mediante un hypervisor (como VMware, VirtualBox o
+				KVM) que se encarga de administrar los recursos del host y
+				distribuirlos entre las máquinas virtuales. Cada VM está
+				completamente aislada de las demás.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				¿Qué es un Contenedor?
+			</h2>
+			<p class="text-gray-700 mb-4">
+				Un contenedor es una unidad de software que empaqueta el código de tu
+				aplicación junto con todas sus dependencias. A diferencia de las VMs,
+				los contenedores comparten el kernel del sistema operativo host, lo
+				que los hace mucho más livianos y rápidos de iniciar.
+			</p>
+			<p class="text-gray-700 mb-4">
+				Docker es la herramienta más popular para trabajar con contenedores.
+				Cuando creas un contenedor, defines un Dockerfile que especifica qué
+				sistema base usar, qué dependencias instalar y cómo ejecutar tu
+				aplicación.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				Comparación directa
+			</h2>
+
+			<div class="overflow-x-auto mb-4">
+				<table
+					class="w-full text-gray-700 border-collapse border border-gray-300"
+				>
+					<thead>
+						<tr class="bg-gray-100">
+							<th class="border border-gray-300 p-3 text-left"
+								>Aspecto</th
+							>
+							<th class="border border-gray-300 p-3 text-left"
+								>Máquinas Virtuales</th
+							>
+							<th class="border border-gray-300 p-3 text-left"
+								>Contenedores</th
+							>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="border border-gray-300 p-3 font-semibold"
+								>Tiempo de inicio</td
+							>
+							<td class="border border-gray-300 p-3">Minutos</td>
+							<td class="border border-gray-300 p-3">Segundos</td>
+						</tr>
+						<tr>
+							<td class="border border-gray-300 p-3 font-semibold"
+								>Uso de recursos</td
+							>
+							<td class="border border-gray-300 p-3"
+								>Alto (GB de RAM)</td
+							>
+							<td class="border border-gray-300 p-3"
+								>Bajo (MB de RAM)</td
+							>
+						</tr>
+						<tr>
+							<td class="border border-gray-300 p-3 font-semibold"
+								>Aislamiento</td
+							>
+							<td class="border border-gray-300 p-3">Completo</td>
+							<td class="border border-gray-300 p-3"
+								>A nivel de proceso</td
+							>
+						</tr>
+						<tr>
+							<td class="border border-gray-300 p-3 font-semibold"
+								>Portabilidad</td
+							>
+							<td class="border border-gray-300 p-3">Media</td>
+							<td class="border border-gray-300 p-3">Alta</td>
+						</tr>
+						<tr>
+							<td class="border border-gray-300 p-3 font-semibold"
+								>Sistema operativo</td
+							>
+							<td class="border border-gray-300 p-3">Cualquiera</td>
+							<td class="border border-gray-300 p-3"
+								>Comparte kernel con host</td
+							>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				¿Cuándo usar Máquinas Virtuales?
+			</h2>
+			<ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+				<li>
+					Necesitas ejecutar diferentes sistemas operativos (Linux y
+					Windows en el mismo servidor)
+				</li>
+				<li>
+					Requieres aislamiento completo por razones de seguridad o
+					compliance
+				</li>
+				<li>Tu aplicación necesita acceso directo a hardware específico</li>
+				<li>
+					Estás migrando sistemas legacy que no fueron diseñados para
+					contenedores
+				</li>
+				<li>
+					Necesitas ambientes de desarrollo que repliquen exactamente
+					producción
+				</li>
+			</ul>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				¿Cuándo usar Contenedores?
+			</h2>
+			<ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+				<li>Desarrollas aplicaciones cloud-native o microservicios</li>
+				<li>Necesitas escalar rápidamente según la demanda</li>
+				<li>
+					Quieres consistencia entre ambientes de desarrollo, staging y
+					producción
+				</li>
+				<li>Tu equipo practica CI/CD y despliegues frecuentes</li>
+				<li>Buscas optimizar costos de infraestructura</li>
+			</ul>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">
+				La respuesta híbrida
+			</h2>
+			<p class="text-gray-700 mb-4">
+				En la práctica, muchos equipos usan ambas tecnologías. Es común tener
+				contenedores corriendo dentro de máquinas virtuales. Esto te da lo
+				mejor de ambos mundos: el aislamiento y seguridad de las VMs con la
+				eficiencia y portabilidad de los contenedores.
+			</p>
+			<p class="text-gray-700 mb-4">
+				Por ejemplo, podrías tener una VM dedicada para tu base de datos
+				(donde necesitas control total del sistema operativo y recursos) y
+				usar contenedores para tus servicios de aplicación que necesitan
+				escalar dinámicamente.
+			</p>
+
+			<h2 class="text-2xl font-semibold text-primary mb-3">Conclusión</h2>
+			<p class="text-gray-700">
+				No hay una respuesta única. La elección depende de tus necesidades
+				específicas de aislamiento, rendimiento, portabilidad y el tipo de
+				aplicación que estás desarrollando. Lo importante es entender las
+				diferencias y elegir la herramienta correcta para cada caso de uso en
+				tu arquitectura.
+			</p>
+		</article>
+	</main>
+</Layout>
